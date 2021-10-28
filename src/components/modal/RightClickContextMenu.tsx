@@ -1,20 +1,23 @@
-import React, { useEffect } from "react";
-import { useScroll } from "ahooks";
+import React, { useEffect, useRef, useState } from "react";
+import ModuleCss from "./RightClickContextMenu.module.scss";
 
 export default function RightClickContextMenu() {
-  useScroll();
+  const [visible, setVisible] = useState(false);
+  const menuRef:any = useRef();
+  setTimeout(() => {
+    console.log(menuRef);
+  }, 1000);
   // @ts-ignore
-  const _handleContextMenu = (event) => {
+  const handleContextMenu = (event) => {
     event.preventDefault();
-
-    this.setState({ visible: true });
+    setVisible(true);
 
     const clickX = event.clientX;
     const clickY = event.clientY;
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
-    const rootW = this.root.offsetWidth;
-    const rootH = this.root.offsetHeight;
+    const rootW = menuRef.current.offsetWidth;
+    const rootH = menuRef.current.offsetHeight;
 
     // right为true，说明鼠标点击的位置到浏览器的右边界的宽度可以放contextmenu。
     // 否则，菜单放到左边。
@@ -25,56 +28,54 @@ export default function RightClickContextMenu() {
     const bottom = !top;
 
     if (right) {
-      this.root.style.left = `${clickX + 5}px`;
+      menuRef.current.style.left = `${clickX + 5}px`;
     }
 
     if (left) {
-      this.root.style.left = `${clickX - rootW - 5}px`;
+      menuRef.current.style.left = `${clickX - rootW - 5}px`;
     }
 
     if (top) {
-      this.root.style.top = `${clickY + 5}px`;
+      menuRef.current.style.top = `${clickY + 5}px`;
     }
 
     if (bottom) {
-      this.root.style.top = `${clickY - rootH - 5}px`;
+      menuRef.current.style.top = `${clickY - rootH - 5}px`;
     }
   };
 
   useEffect(() => {
-    document.addEventListener("contextmenu", this._handleContextMenu);
-    document.addEventListener("click", this._handleClick);
-    document.addEventListener("scroll", this._handleScroll);
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("click", handleClick);
+    document.addEventListener("scroll", handleScroll);
 
     return () => {
-      document.removeEventListener("contextmenu", this._handleContextMenu);
-      document.removeEventListener("click", this._handleClick);
-      document.removeEventListener("scroll", this._handleScroll);
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("click", handleClick);
+      document.removeEventListener("scroll", handleScroll);
     };
-  });
+  }, [visible]);
 
-  const _handleClick = (event) => {
-    const { visible } = this.state;
-    const wasOutside = !(event.target.contains === this.root);
-
-    if (wasOutside && visible) this.setState({ visible: false });
+  const handleClick = (event:MouseEvent) => {
+    if (event) {
+      // @ts-ignore
+      const wasOutside = !(event.target.contains === menuRef.current);
+      if (wasOutside && visible) setVisible(false);
+    }
   };
-  // const { visible } = this.state;
-  const _handleScroll = () => {
-    const { visible } = this.state;
-
-    if (visible) this.setState({ visible: false });
+  const handleScroll = () => {
+    if (visible) setVisible(false);
   };
   return (visible || null)
     && (
-    <div ref={(ref) => { this.root = ref; }} className="contextMenu">
-      <div className="contextMenu--option">Share this</div>
-      <div className="contextMenu--option">New window</div>
-      <div className="contextMenu--option">Visit official site</div>
-      <div className="contextMenu--option contextMenu--option__disabled">View full version</div>
-      <div className="contextMenu--option">Settings</div>
-      <div className="contextMenu--separator" />
-      <div className="contextMenu--option">About this app</div>
+    <div ref={menuRef} className={ModuleCss["menu-modal"]}>
+      <div>Share this</div>
+      <div>New window</div>
+      <div>Visit official site</div>
+      <div>View full version</div>
+      <div>Settings</div>
+      <div />
+      <div>About this app</div>
     </div>
     );
 }

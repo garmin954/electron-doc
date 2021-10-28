@@ -34,9 +34,9 @@ export default function Files() {
     // justifyContent: "space-between",
     // alignItems: "center",
     color: "#ffffff",
-    "text-align": "left",
   };
 
+  // @ts-ignore
   const treeDataWithNode = [
     {
       label: (
@@ -92,6 +92,7 @@ export default function Files() {
 
   return (
     <div className={ModuleCss.files}>
+
       <div className={ModuleCss.searchbox}>
         <Input className={ModuleCss.search} suffix={<IconSearch />} showClear />
         <div className={`${ModuleCss.create} d-table`}>
