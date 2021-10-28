@@ -11,10 +11,16 @@ function createWindow() {
     webPreferences: {
       preload: path.join(__dirname, "p reload.js"),
     },
+    transparent: true,
+    // backgroundColor: "#00000000",
+    frame: false,
   });
 
-  const urlLocation = isDev ? "http://localhost:3000" : "./public/index.html";
+  const urlLocation = isDev ? "http://localhost:3000" : "http://www.baidu.com";
   win.loadURL(urlLocation);
+
+  // 打开调试框
+  win.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {

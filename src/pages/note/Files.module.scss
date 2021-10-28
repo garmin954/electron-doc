@@ -1,0 +1,30 @@
+@import "src/index";
+.files {
+  width: 200px;
+  background: #282c34;
+  height: 100%;
+  border-radius: 5px;
+  padding: 10px 5px;
+  box-sizing: border-box;
+  .searchbox{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .search {
+      background: #e7eaf1;
+      width: 150px;
+      height: 30px;
+    }
+
+    .create {
+      width: 30px;
+      text-align: center;
+      height: 30px;
+      //line-height: 30px;
+      background: #72767e;
+      border-radius: 2px;
+    }
+  }
+
+}

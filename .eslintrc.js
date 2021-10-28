@@ -28,5 +28,6 @@ module.exports = {
     "react/jsx-filename-extension": "off",
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
+    "no-unused-vars": "error",
   },
 };

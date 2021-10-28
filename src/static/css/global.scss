@@ -1,0 +1,139 @@
+$header-height: 64px;
+$footer-height: 70px;
+
+
+$listMarginPadding:0,3,5,8,10,14,15,16,20,24,25,30, 35,45,50,54,60,92,100,120; //margin padding
+$listPadding:0, 10,11,15, 16, 20 ,30; //padding:vertical horizontal
+
+$display:block,inline,inline-block,flex,none;
+
+$justifyContent:flex-start , flex-end , center , space-between , space-around;
+$alignItems: flex-start , flex-end , center , baseline , stretch;
+$flexDirection:row , row-reverse , column , column-reverse;
+
+$text: center, left, right; //文字状态
+$alignSelf: auto, baseline, center;
+$float: left, right;
+@each $item in $float {
+	.f-#{$item} {
+		float: #{$item};
+	}
+}
+
+@each $item in $alignSelf {
+	.as-#{$item} {
+		align-self: #{$item};
+	}
+}
+
+@each $item in $alignSelf {
+	.as-#{$item} {
+		align-self: #{$item};
+	}
+}
+
+/* 块状 */
+@each $item in $display {
+	.#{$item} {
+		display: #{$item};
+	}
+}
+/* {弹性布局 */
+// justify-content
+@each $item in $justifyContent{
+  .jc-#{$item}{
+    justify-content: #{$item};
+  }
+}
+//align-items
+@each $item in $alignItems{
+  .ai-#{$item}{
+    align-items: #{$item};
+  }
+}
+//flex-direction
+@each $item in $flexDirection{
+  .fd-#{$item}{
+    flex-direction: #{$item};
+  }
+}
+/* text 文字排版*/
+@each $item in $text {
+	.text-#{$item} {
+		text-align: #{$item};
+	}
+}
+/* ellipsis 文字超出隐藏 */
+.ellipsis-1 {
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	word-break: break-all;
+}
+.ellipsis1 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	white-space: break-spaces;
+	word-break: break-all!important;
+}
+
+@for $i from 2 through 5 {
+	.ellipsis-#{$i} {
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: #{$i};
+		overflow: hidden;
+		word-break: break-all;
+	}
+}
+/* 边距 */
+@each $item in $listPadding {
+  /* margin 外边距 */
+	.mar-#{$item} {
+		margin: #{$item}px;
+  }
+  /* padding 内边距*/
+  .pad-#{$item} {
+	  padding: #{$item}px;
+	}
+}
+@each $item in $listMarginPadding {
+  /* margin 外边距 */
+	.ml-#{$item} {
+		margin-left: #{$item}px;
+	}
+
+	.mr-#{$item} {
+		margin-right: #{$item}px;
+	}
+
+	.mt-#{$item} {
+		margin-top: #{$item}px;
+	}
+
+	.mb-#{$item} {
+		margin-bottom: #{$item}px;
+	}
+  /* padding 内边距 */
+	.pl-#{$item} {
+		padding-left: #{$item}px;
+	}
+
+	.pr-#{$item} {
+		padding-right: #{$item}px;
+	}
+
+	.pt-#{$item} {
+		padding-top: #{$item}px;
+	}
+
+	.pb-#{$item} {
+		padding-bottom: #{$item}px;
+	}
+}

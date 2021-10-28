@@ -1,0 +1,29 @@
+@import "src/index";
+.menu {
+  background: $bg-primary;
+  color: $color-primary;
+  width: 60px;
+  height: 100vh;
+  padding: 10px 5px;
+  box-sizing: border-box;
+
+  .header {
+    height: 80px;
+  }
+  .container {
+    height: calc(100% - 160px);
+  }
+  .footer {
+    padding: 4px;
+    box-sizing: border-box;
+    height: 80px;
+    display: flex;
+    flex-direction: column-reverse;
+
+    .item {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+}
