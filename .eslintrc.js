@@ -29,5 +29,7 @@ module.exports = {
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "error",
+    "react/jsx-no-bind": "off",
+    "no-console": "off",
   },
 };

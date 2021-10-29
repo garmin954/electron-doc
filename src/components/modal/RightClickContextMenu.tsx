@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  RefObject,
+  useEffect, useRef, useState,
+} from "react";
 import ModuleCss from "./RightClickContextMenu.module.scss";
 
-export default function RightClickContextMenu() {
+export default function RightClickContextMenu({ el }: { el: RefObject<HTMLDivElement> & any }) {
   const [visible, setVisible] = useState(false);
-  const menuRef:any = useRef();
+  const menuRef:any = useRef<RefObject<HTMLDivElement>>(null);
   setTimeout(() => {
-    console.log(menuRef);
+    console.log("el-------------", el);
   }, 1000);
-  // @ts-ignore
-  const handleContextMenu = (event) => {
+  const handleContextMenu = (event:MouseEvent) => {
     event.preventDefault();
     setVisible(true);
 
@@ -16,8 +18,8 @@ export default function RightClickContextMenu() {
     const clickY = event.clientY;
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
-    const rootW = menuRef.current.offsetWidth;
-    const rootH = menuRef.current.offsetHeight;
+    const rootW = menuRef?.current.offsetWidth;
+    const rootH = menuRef?.current.offsetHeight;
 
     // right为true，说明鼠标点击的位置到浏览器的右边界的宽度可以放contextmenu。
     // 否则，菜单放到左边。
@@ -45,14 +47,14 @@ export default function RightClickContextMenu() {
   };
 
   useEffect(() => {
-    document.addEventListener("contextmenu", handleContextMenu);
-    document.addEventListener("click", handleClick);
-    document.addEventListener("scroll", handleScroll);
+    el.current.addEventListener("contextmenu", handleContextMenu);
+    el.current.addEventListener("click", handleClick);
+    el.current.addEventListener("scroll", handleScroll);
 
     return () => {
-      document.removeEventListener("contextmenu", handleContextMenu);
-      document.removeEventListener("click", handleClick);
-      document.removeEventListener("scroll", handleScroll);
+      el.current.removeEventListener("contextmenu", handleContextMenu);
+      el.current.removeEventListener("click", handleClick);
+      el.current.removeEventListener("scroll", handleScroll);
     };
   }, [visible]);
 
@@ -69,14 +71,11 @@ export default function RightClickContextMenu() {
   return (visible || null)
     && (
     <div ref={menuRef} className={ModuleCss["menu-modal"]}>
-      <div>Share this</div>
-      <div>New window</div>
-      <div>Visit official site</div>
-      <div>View full version</div>
-      <div>Settings</div>
-      <div />
-      <div>About this app</div>
+      <div>新建</div>
+      <div>复制</div>
+      <div>粘贴</div>
+      <div>重命名</div>
+      <div>删除</div>
     </div>
     );
 }
-// ReactDOM.render(<ContextMenu />, document.getElementById('root'));

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { RefObject, useRef } from "react";
 import {
   Input, Tree, ButtonGroup, Button, Toast,
 } from "@douyinfe/semi-ui";
 import { IconSearch, IconPlus } from "@douyinfe/semi-icons";
 import ModuleCss from "./Files.module.scss";
+import RightClickContextMenu from "../../components/modal/RightClickContextMenu";
 
 export default function Files() {
   const opts = {
@@ -42,7 +43,7 @@ export default function Files() {
       label: (
         <div style={style}>
           <span>亚洲</span>
-          {/* {button} */}
+          {button}
         </div>
       ),
       value: "yazhou",
@@ -89,9 +90,11 @@ export default function Files() {
     border: "1px solid var(--semi-color-border)",
     color: "#ffffff",
   };
+  const els:any = useRef<RefObject<HTMLDivElement>>(null);
 
   return (
-    <div className={ModuleCss.files}>
+    <div ref={els} className={ModuleCss.files}>
+      <RightClickContextMenu el={els} />
 
       <div className={ModuleCss.searchbox}>
         <Input className={ModuleCss.search} suffix={<IconSearch />} showClear />
